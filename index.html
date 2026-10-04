@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stratum — Business Analytics Platform</title>
+  <meta name="description" content="Stratum gives your sales team the clearest view of pipeline, revenue, and customer health. Built on objective data. Designed for decisive action." />
+  <link rel="stylesheet" href="main.css" />
+  <style>
+    /* ── Page-specific: Hero ──────────────────────────────── */
+    .hero {
+      border-bottom: 4px solid #000;
+      overflow: hidden;
+    }
+
+    .hero__grid {
+      display: grid;
+      grid-template-columns: 7fr 5fr;
+      min-height: calc(100vh - 64px);
+    }
+
+    .hero__content {
+      padding: 5rem 4rem 5rem 2rem;
+      border-right: 4px solid #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero__eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero__eyebrow-line {
+      width: 40px;
+      height: 4px;
+      background-color: #FF3000;
+    }
+
+    .hero__headline {
+      font-size: clamp(4rem, 8vw, 9rem);
+      font-weight: 900;
+      line-height: 0.88;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    .hero__headline em {
+      font-style: normal;
+      color: #FF3000;
+    }
+
+    .hero__body {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #444;
+      max-width: 48ch;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero__actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .hero__proof {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 2px solid rgba(0,0,0,0.1);
+    }
+
+    .hero__proof-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .hero__proof-num {
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    .hero__proof-label {
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #888;
+    }
+
+    .hero__proof-divider {
+      width: 1px;
+      height: 40px;
+      background-color: rgba(0,0,0,0.15);
+    }
+
+    /* ── Hero Composition ──────────────────────────────────── */
+    .hero__visual {
+      background-color: #F2F2F2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .composition {
+      position: relative;
+      width: 360px;
+      height: 360px;
+    }
+
+    .comp-circle-lg {
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      border: 4px solid #000;
+      top: 40px;
+      left: 40px;
+    }
+
+    .comp-rect-accent {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background-color: #FF3000;
+      top: 0;
+      right: 20px;
+    }
+
+    .comp-rect-black {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background-color: #000;
+      bottom: 20px;
+      left: 0;
+    }
+
+    .comp-circle-sm {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: #000;
+      bottom: 30px;
+      right: 40px;
+    }
+
+    .comp-line-h {
+      position: absolute;
+      width: 100%;
+      height: 4px;
+      background-color: #000;
+      top: 50%;
+      left: 0;
+    }
+
+    .comp-text {
+      position: absolute;
+      font-size: 0.625rem;
+      font-weight: 900;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      writing-mode: vertical-lr;
+      transform: rotate(180deg);
+      color: rgba(0,0,0,0.25);
+      right: 0;
+      top: 0;
+    }
+
+    /* ── Stats Bar ──────────────────────────────────────────── */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 4px solid #000;
+    }
+
+    .stats-bar__item {
+      padding: 2.5rem 2rem;
+      border-right: 4px solid #000;
+    }
+
+    .stats-bar__item:last-child { border-right: none; }
+
+    /* ── Features ───────────────────────────────────────────── */
+    .features__header {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: 0;
+      margin-bottom: 0;
+      border-bottom: 4px solid #000;
+    }
+
+    .features__header-left {
+      padding: 4rem 3rem 4rem 2rem;
+      border-right: 4px solid #000;
+    }
+
+    .features__header-right {
+      padding: 4rem 2rem 4rem 3rem;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .features__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .feature-card {
+      padding: 3rem 2rem;
+      border-right: 4px solid #000;
+      border-bottom: 4px solid #000;
+      transition: background-color 200ms ease-out, color 200ms ease-out;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card:nth-child(3n) { border-right: none; }
+    .feature-card:nth-last-child(-n+3) { border-bottom: none; }
+
+    .feature-card:hover { background-color: #FF3000; color: #fff; }
+
+    .feature-card__num {
+      font-size: 4rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: rgba(0,0,0,0.06);
+      line-height: 1;
+      margin-bottom: 1rem;
+      transition: color 200ms ease-out;
+    }
+
+    .feature-card:hover .feature-card__num { color: rgba(255,255,255,0.15); }
+
+    .feature-card__icon {
+      width: 44px;
+      height: 44px;
+      background-color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      transition: background-color 200ms ease-out;
+    }
+
+    .feature-card:hover .feature-card__icon { background-color: rgba(255,255,255,0.2); }
+
+    .feature-card__icon svg { color: #fff; }
+
+    .feature-card__title {
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .feature-card__desc {
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: #555;
+      transition: color 200ms ease-out;
+    }
+
+    .feature-card:hover .feature-card__desc { color: rgba(255,255,255,0.8); }
+
+    /* ── Testimonials ───────────────────────────────────────── */
+    .testimonials__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .testimonial-card {
+      padding: 3rem 2rem;
+      border-right: 4px solid #000;
+      border-top: 4px solid #000;
+      transition: transform 150ms ease-out, border-color 150ms ease-out;
+      cursor: default;
+    }
+
+    .testimonial-card:last-child { border-right: none; }
+    .testimonial-card:hover { transform: translateY(-2px); border-top-color: #FF3000; }
+
+    .testimonial-card__quote {
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      color: #222;
+    }
+
+    .testimonial-card__quote::before { content: '\201C'; color: #FF3000; font-size: 1.5rem; line-height: 0; vertical-align: -0.4em; margin-right: 0.2em; }
+
+    .testimonial-card__author {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .testimonial-card__name {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .testimonial-card__role {
+      font-size: 0.625rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #888;
+    }
+
+    /* ── CTA Band ────────────────────────────────────────────── */
+    .cta-band {
+      background-color: #000;
+      color: #fff;
+      padding: 6rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+      border-top: 4px solid #000;
+    }
+
+    .cta-band__headline {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+      text-transform: uppercase;
+      max-width: 18ch;
+    }
+
+    .cta-band__headline em { font-style: normal; color: #FF3000; }
+
+    @media (max-width: 768px) {
+      .hero__grid { grid-template-columns: 1fr; }
+      .hero__visual { display: none; }
+      .hero__content { padding: 3rem 1.5rem; border-right: none; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .stats-bar__item:nth-child(2) { border-right: none; }
+      .stats-bar__item:nth-child(3) { border-right: 4px solid #000; border-top: 4px solid #000; }
+      .stats-bar__item:nth-child(4) { border-right: none; border-top: 4px solid #000; }
+      .features__header { grid-template-columns: 1fr; }
+      .features__header-left { border-right: none; border-bottom: 4px solid #000; }
+      .features__grid { grid-template-columns: 1fr; }
+      .feature-card { border-right: none; border-bottom: 4px solid #000; }
+      .feature-card:nth-child(3n) { border-right: none; }
+      .testimonials__grid { grid-template-columns: 1fr; }
+      .testimonial-card { border-right: none; }
+      .cta-band { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Alert Bar -->
+  <div class="alert-bar" role="banner">
+    ★ New: Pipeline AI Forecasting — Now in Beta. <a href="pricing.html" style="text-decoration:underline;margin-left:.5rem;">See Plans →</a>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <div class="nav__inner">
+        <a href="index.html" class="nav__logo" aria-label="Stratum home">Strat<span>um</span></a>
+
+        <div class="nav__links" role="list">
+          <a href="index.html" class="nav__link" role="listitem">
+            <span>Home</span><span>Home</span>
+          </a>
+          <a href="about.html" class="nav__link" role="listitem">
+            <span>About</span><span>About</span>
+          </a>
+          <a href="pricing.html" class="nav__link" role="listitem">
+            <span>Pricing</span><span>Pricing</span>
+          </a>
+          <a href="contact.html" class="nav__link" role="listitem">
+            <span>Contact</span><span>Contact</span>
+          </a>
+        </div>
+
+        <div class="nav__actions">
+          <a href="login.html" class="btn btn-secondary btn-sm">Log In</a>
+          <a href="login.html#signup" class="btn btn-primary btn-sm">Get Started</a>
+        </div>
+
+        <button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav" id="mobile-nav" role="dialog" aria-label="Mobile navigation">
+    <a href="index.html" class="mobile-nav__link">Home</a>
+    <a href="about.html" class="mobile-nav__link">About</a>
+    <a href="pricing.html" class="mobile-nav__link">Pricing</a>
+    <a href="contact.html" class="mobile-nav__link">Contact</a>
+    <div style="margin-top:2rem;display:flex;flex-direction:column;gap:1rem;">
+      <a href="login.html" class="btn btn-secondary btn-full btn-lg">Log In</a>
+      <a href="login.html#signup" class="btn btn-accent btn-full btn-lg">Get Started</a>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-headline">
+    <div class="hero__grid">
+      <div class="hero__content">
+        <div class="hero__eyebrow">
+          <div class="hero__eyebrow-line" aria-hidden="true"></div>
+          <span class="type-label text-accent">01. Business Intelligence</span>
+        </div>
+
+        <h1 class="hero__headline" id="hero-headline">
+          Revenue<br/>
+          Without<br/>
+          <em>Guesswork</em>
+        </h1>
+
+        <p class="hero__body">
+          Stratum gives your sales team a single, unambiguous view of pipeline, revenue, and customer health. Flat data. Clear decisions. No noise.
+        </p>
+
+        <div class="hero__actions">
+          <a href="login.html#signup" class="btn btn-primary btn-lg">Start Free Trial</a>
+          <a href="dashboard.html" class="btn btn-secondary btn-lg">View Demo</a>
+        </div>
+
+        <div class="hero__proof" aria-label="Social proof">
+          <div class="hero__proof-stat">
+            <span class="hero__proof-num" data-counter data-target="2400" data-suffix="+">0+</span>
+            <span class="hero__proof-label">Teams Onboarded</span>
+          </div>
+          <div class="hero__proof-divider" aria-hidden="true"></div>
+          <div class="hero__proof-stat">
+            <span class="hero__proof-num" data-counter data-target="98" data-suffix="%">0%</span>
+            <span class="hero__proof-label">Retention Rate</span>
+          </div>
+          <div class="hero__proof-divider" aria-hidden="true"></div>
+          <div class="hero__proof-stat">
+            <span class="hero__proof-num" data-counter data-prefix="$" data-target="1.2" data-suffix="B">$0B</span>
+            <span class="hero__proof-label">Revenue Tracked</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__visual swiss-grid-pattern" aria-hidden="true">
+        <div class="composition">
+          <div class="comp-circle-lg"></div>
+          <div class="comp-rect-accent"></div>
+          <div class="comp-rect-black"></div>
+          <div class="comp-circle-sm"></div>
+          <div class="comp-line-h"></div>
+          <span class="comp-text">Stratum Analytics System 2026</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <div class="stats-bar" role="list" aria-label="Platform statistics">
+    <div class="stat-card stats-bar__item" role="listitem">
+      <div class="stat-card__label">Monthly Revenue Tracked</div>
+      <div class="stat-card__value" data-counter data-prefix="$" data-target="847" data-suffix="M">$0M</div>
+      <div class="stat-card__delta stat-card__delta--up">▲ 23% YoY</div>
+    </div>
+    <div class="stat-card stats-bar__item" role="listitem">
+      <div class="stat-card__label">Active Pipelines</div>
+      <div class="stat-card__value" data-counter data-target="14200" data-suffix="">0</div>
+      <div class="stat-card__delta stat-card__delta--up">▲ 18% this quarter</div>
+    </div>
+    <div class="stat-card stats-bar__item" role="listitem">
+      <div class="stat-card__label">Avg. Deal Velocity</div>
+      <div class="stat-card__value" data-counter data-target="22" data-suffix=" days">0 days</div>
+      <div class="stat-card__delta stat-card__delta--up">▲ 11% faster</div>
+    </div>
+    <div class="stat-card stats-bar__item" role="listitem">
+      <div class="stat-card__label">Win Rate (Avg.)</div>
+      <div class="stat-card__value" data-counter data-target="64" data-suffix="%">0%</div>
+      <div class="stat-card__delta stat-card__delta--up">▲ 7pts vs last year</div>
+    </div>
+  </div>
+
+  <!-- Features -->
+  <section class="section" style="padding:0;border-bottom:4px solid #000;" aria-labelledby="features-heading">
+    <div class="features__header">
+      <div class="features__header-left">
+        <div class="section-label">
+          <span class="section-label__num">02.</span>
+          <span class="section-label__text">The System</span>
+        </div>
+        <h2 class="type-headline reveal" id="features-heading">Built for<br/>Decisive<br/>Teams</h2>
+      </div>
+      <div class="features__header-right">
+        <p class="type-body text-muted reveal">Every metric. Every pipeline stage. Every customer signal. Stratum surfaces what matters — without the noise. No dashboards buried under dashboards.</p>
+      </div>
+    </div>
+
+    <div class="features__grid">
+      <div class="feature-card reveal">
+        <div class="feature-card__num">01</div>
+        <div class="feature-card__icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="0" ry="0"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3 class="feature-card__title">Revenue Dashboard</h3>
+        <p class="feature-card__desc">Live MRR, ARR, churn, and expansion revenue in a single, unambiguous view. No setup required.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-card__num">02</div>
+        <div class="feature-card__icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3 class="feature-card__title">Pipeline Intelligence</h3>
+        <p class="feature-card__desc">Track every deal stage with automatic health scores, velocity metrics, and at-risk alerts.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-card__num">03</div>
+        <div class="feature-card__icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3 class="feature-card__title">Customer Health</h3>
+        <p class="feature-card__desc">Segment customers by revenue, engagement, and risk. Know who to call before they churn.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card__num">04</div>
+        <div class="feature-card__icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <h3 class="feature-card__title">Sales Reporting</h3>
+        <p class="feature-card__desc">Rep performance, quota attainment, and team leaderboards. Export-ready in seconds.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-card__num">05</div>
+        <div class="feature-card__icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3 class="feature-card__title">Forecast Engine</h3>
+        <p class="feature-card__desc">AI-driven close predictions with confidence intervals. Know what you'll close before the quarter ends.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-card__num">06</div>
+        <div class="feature-card__icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3 class="feature-card__title">Team Collaboration</h3>
+        <p class="feature-card__desc">Comment on deals, tag teammates, and share snapshots — all without leaving the platform.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section" style="padding:0;" aria-labelledby="testimonials-heading">
+    <div class="container" style="padding-block:4rem;">
+      <div class="section-label">
+        <span class="section-label__num">03.</span>
+        <span class="section-label__text">What Teams Say</span>
+      </div>
+      <h2 class="type-subhead reveal" id="testimonials-heading" style="margin-bottom:3rem;">Trusted by Revenue Teams Worldwide</h2>
+    </div>
+    <div class="testimonials__grid" style="border-top:4px solid #000;">
+      <div class="testimonial-card reveal">
+        <p class="testimonial-card__quote">Stratum cut our forecast meetings in half. The data speaks for itself — there's no arguing over numbers anymore.</p>
+        <div class="testimonial-card__author">
+          <div class="avatar">JR</div>
+          <div>
+            <div class="testimonial-card__name">Jessica R.</div>
+            <div class="testimonial-card__role">VP of Sales, Meridian SaaS</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-1">
+        <p class="testimonial-card__quote">The pipeline view is exactly what we needed. No charts just for show — every number means something. Our close rates went up 14 points.</p>
+        <div class="testimonial-card__author">
+          <div class="avatar">TM</div>
+          <div>
+            <div class="testimonial-card__name">Thomas M.</div>
+            <div class="testimonial-card__role">CRO, Fenwick Capital</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-2">
+        <p class="testimonial-card__quote">We migrated from Salesforce reporting in two weeks. Stratum's data model is cleaner and the team adopted it immediately.</p>
+        <div class="testimonial-card__author">
+          <div class="avatar">AL</div>
+          <div>
+            <div class="testimonial-card__name">Anika L.</div>
+            <div class="testimonial-card__role">Head of RevOps, Volta Systems</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <div class="cta-band">
+    <h2 class="cta-band__headline">Ready to see your <em>real</em> numbers?</h2>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+      <a href="login.html#signup" class="btn btn-accent btn-lg">Start Free — No Card Needed</a>
+      <a href="contact.html" class="btn btn-lg" style="border:2px solid rgba(255,255,255,0.3);color:#fff;">Talk to Sales</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__logo">Strat<span>um</span></div>
+          <p class="footer__desc">Business analytics built on objective data, designed for decisive action.</p>
+        </div>
+        <div>
+          <div class="footer__heading">Product</div>
+          <a href="dashboard.html" class="footer__link">Dashboard</a>
+          <a href="pricing.html" class="footer__link">Pricing</a>
+          <a href="index.html" class="footer__link">Features</a>
+        </div>
+        <div>
+          <div class="footer__heading">Company</div>
+          <a href="about.html" class="footer__link">About</a>
+          <a href="contact.html" class="footer__link">Contact</a>
+          <a href="#" class="footer__link">Careers</a>
+        </div>
+        <div>
+          <div class="footer__heading">Legal</div>
+          <a href="#" class="footer__link">Privacy Policy</a>
+          <a href="#" class="footer__link">Terms of Service</a>
+          <a href="#" class="footer__link">Security</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span class="footer__copy">© 2026 Stratum Analytics, Inc. All rights reserved.</span>
+        <span class="footer__copy">Designed in the Swiss International Typographic Style.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

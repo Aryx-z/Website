@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Stratum Analytics</title>
+  <meta name="description" content="Stratum was founded on a single belief: revenue data should be honest, objective, and immediate. Learn about our mission, values, and team." />
+  <link rel="stylesheet" href="main.css" />
+  <style>
+    /* ── About Hero ───────────────────────────────────────── */
+    .about-hero {
+      border-bottom: 4px solid #000;
+      overflow: hidden;
+    }
+
+    .about-hero__grid {
+      display: grid;
+      grid-template-columns: 7fr 5fr;
+    }
+
+    .about-hero__content {
+      padding: 6rem 4rem 6rem 0;
+      border-right: 4px solid #000;
+    }
+
+    .about-hero__visual {
+      background-color: #000;
+      color: #fff;
+      padding: 4rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-hero__visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    .about-hero__year {
+      font-size: 8rem;
+      font-weight: 900;
+      letter-spacing: -0.06em;
+      line-height: 0.85;
+      color: rgba(255,255,255,0.08);
+      position: absolute;
+      top: 2rem;
+      right: -1rem;
+    }
+
+    .about-hero__fact {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 2rem;
+    }
+
+    .about-hero__fact-num {
+      font-size: 3rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: #FF3000;
+    }
+
+    .about-hero__fact-label {
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ── Values ───────────────────────────────────────────── */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .value-card {
+      padding: 3rem 2rem;
+      border-right: 4px solid #000;
+    }
+
+    .value-card:last-child { border-right: none; }
+
+    .value-card__num {
+      font-size: 0.625rem;
+      font-weight: 900;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #FF3000;
+      margin-bottom: 1rem;
+    }
+
+    .value-card__title {
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .value-card__desc {
+      font-size: 0.875rem;
+      line-height: 1.65;
+      color: #555;
+    }
+
+    /* ── Team ─────────────────────────────────────────────── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .team-card {
+      border-right: 4px solid #000;
+      border-top: 4px solid #000;
+    }
+
+    .team-card:nth-child(3n) { border-right: none; }
+
+    .team-card__photo {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      border-bottom: 4px solid #000;
+    }
+
+    .team-card__photo-placeholder {
+      width: 100%;
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 4px solid #000;
+      font-size: 4rem;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .team-card__body { padding: 2rem; }
+
+    .team-card__name {
+      font-size: 1.25rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+
+    .team-card__role {
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #FF3000;
+      margin-bottom: 0.75rem;
+    }
+
+    .team-card__bio {
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    /* ── Manifesto ────────────────────────────────────────── */
+    .manifesto {
+      background-color: #000;
+      color: #fff;
+      padding: 8rem 0;
+      border-top: 4px solid #000;
+      border-bottom: 4px solid #000;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .manifesto::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    .manifesto__inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .manifesto__text {
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      text-transform: uppercase;
+      max-width: 24ch;
+    }
+
+    .manifesto__text em { font-style: normal; color: #FF3000; }
+
+    .manifesto__sub {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.5);
+      max-width: 55ch;
+      margin-top: 3rem;
+    }
+
+    /* ── Timeline ─────────────────────────────────────────── */
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 4px solid #000;
+    }
+
+    .timeline-item {
+      padding: 3rem 2rem;
+      border-right: 4px solid #000;
+      border-bottom: 4px solid #000;
+      position: relative;
+    }
+
+    .timeline-item:last-child { border-right: none; }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 2rem;
+      width: 12px;
+      height: 12px;
+      background-color: #FF3000;
+      transform: translateY(-6px);
+    }
+
+    .timeline-item__year {
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: rgba(0,0,0,0.08);
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-item__event {
+      font-size: 0.875rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-item__desc {
+      font-size: 0.75rem;
+      line-height: 1.6;
+      color: #666;
+    }
+
+    @media (max-width: 768px) {
+      .about-hero__grid { grid-template-columns: 1fr; }
+      .about-hero__content { border-right: none; border-bottom: 4px solid #000; padding: 3rem 0; }
+      .about-hero__visual { display: none; }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+      .value-card:nth-child(2) { border-right: none; }
+      .value-card:nth-child(3) { border-right: 4px solid #000; border-top: 4px solid #000; }
+      .value-card:nth-child(4) { border-right: none; border-top: 4px solid #000; }
+      .team-grid { grid-template-columns: 1fr; }
+      .team-card { border-right: none; }
+      .timeline { grid-template-columns: 1fr 1fr; }
+      .timeline-item:nth-child(2) { border-right: none; }
+      .timeline-item:nth-child(3) { border-right: 4px solid #000; }
+      .timeline-item:nth-child(4) { border-right: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <div class="nav__inner">
+        <a href="index.html" class="nav__logo">Strat<span>um</span></a>
+        <div class="nav__links">
+          <a href="index.html" class="nav__link"><span>Home</span><span>Home</span></a>
+          <a href="about.html" class="nav__link" aria-current="page"><span>About</span><span>About</span></a>
+          <a href="pricing.html" class="nav__link"><span>Pricing</span><span>Pricing</span></a>
+          <a href="contact.html" class="nav__link"><span>Contact</span><span>Contact</span></a>
+        </div>
+        <div class="nav__actions">
+          <a href="login.html" class="btn btn-secondary btn-sm">Log In</a>
+          <a href="login.html#signup" class="btn btn-primary btn-sm">Get Started</a>
+        </div>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="index.html" class="mobile-nav__link">Home</a>
+    <a href="about.html" class="mobile-nav__link">About</a>
+    <a href="pricing.html" class="mobile-nav__link">Pricing</a>
+    <a href="contact.html" class="mobile-nav__link">Contact</a>
+  </div>
+
+  <!-- About Hero -->
+  <section class="about-hero" aria-labelledby="about-headline">
+    <div class="container" style="padding:0;max-width:100%;">
+      <div class="about-hero__grid">
+        <div class="about-hero__content" style="padding-inline-start:2rem;">
+          <div class="section-label">
+            <span class="section-label__num">03.</span>
+            <span class="section-label__text">About Stratum</span>
+          </div>
+          <h1 class="type-headline reveal" id="about-headline">
+            We Build<br/>
+            Tools For<br/>
+            <span class="text-accent">Clarity</span>
+          </h1>
+          <p class="type-body reveal" style="color:#444;margin-top:2rem;margin-bottom:2.5rem;">
+            Stratum was founded in 2021 by revenue operators who were tired of beautiful dashboards that obscured the truth. We built the platform we wished existed — one where every number is earned, not estimated.
+          </p>
+          <a href="login.html#signup" class="btn btn-primary btn-lg reveal">Join 2,400+ Teams</a>
+        </div>
+
+        <div class="about-hero__visual swiss-grid-pattern" style="min-height:500px;">
+          <div class="about-hero__year" aria-hidden="true">2021</div>
+          <div class="about-hero__fact reveal">
+            <div class="about-hero__fact-num" data-counter data-target="2400" data-suffix="+">0+</div>
+            <div class="about-hero__fact-label">Teams Worldwide</div>
+          </div>
+          <div class="about-hero__fact reveal">
+            <div class="about-hero__fact-num" data-counter data-prefix="$" data-target="1.2" data-suffix="B">$0B</div>
+            <div class="about-hero__fact-label">Revenue Tracked</div>
+          </div>
+          <div class="about-hero__fact reveal">
+            <div class="about-hero__fact-num" data-counter data-target="98" data-suffix="%">0%</div>
+            <div class="about-hero__fact-label">Retention Rate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Manifesto -->
+  <section class="manifesto" aria-labelledby="manifesto-heading">
+    <div class="container">
+      <div class="manifesto__inner">
+        <div class="section-label" style="margin-bottom:2rem;">
+          <span class="section-label__num" style="color:rgba(255,48,0,0.7);">01.</span>
+          <span class="section-label__text" style="color:rgba(255,255,255,0.35);">Our Belief</span>
+        </div>
+        <p class="manifesto__text" id="manifesto-heading">
+          Revenue data should be <em>honest</em>, <em>immediate</em>, and <em>undeniable</em>.
+        </p>
+        <p class="manifesto__sub">
+          We reject vanity metrics, estimated pipelines, and dashboards that make bad months look good. Stratum surfaces reality — with the precision of a transit map and the clarity of a stop sign. No noise. No decoration. Just truth.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="section" style="padding:0;border-bottom:4px solid #000;" aria-labelledby="values-heading">
+    <div class="container" style="padding-block:4rem 0;">
+      <div class="section-label">
+        <span class="section-label__num">02.</span>
+        <span class="section-label__text">Our Values</span>
+      </div>
+      <h2 class="type-subhead reveal" id="values-heading" style="margin-bottom:3rem;">What We Stand For</h2>
+    </div>
+    <div class="values-grid" style="border-top:4px solid #000;">
+      <div class="value-card reveal">
+        <div class="value-card__num">01 — Objectivity</div>
+        <div class="value-card__title">Data Over Opinion</div>
+        <p class="value-card__desc">Every feature we ship must help users see reality more clearly. We will not build features that help users avoid the truth.</p>
+      </div>
+      <div class="value-card reveal reveal-delay-1">
+        <div class="value-card__num">02 — Clarity</div>
+        <div class="value-card__title">No Hidden Complexity</div>
+        <p class="value-card__desc">If a metric requires explanation, it's probably wrong. We simplify until the answer is self-evident and the path is clear.</p>
+      </div>
+      <div class="value-card reveal reveal-delay-2">
+        <div class="value-card__num">03 — Precision</div>
+        <div class="value-card__title">Earn Every Number</div>
+        <p class="value-card__desc">Estimates and projections are labeled as such. Actuals are actuals. We never confuse the two, and neither should your team.</p>
+      </div>
+      <div class="value-card reveal reveal-delay-3">
+        <div class="value-card__num">04 — Speed</div>
+        <div class="value-card__title">Time Kills Deals</div>
+        <p class="value-card__desc">Insights must arrive before decisions, not after. Stratum is built for the moment your team needs to act — not the next morning's report.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="section" style="padding:0;" aria-labelledby="timeline-heading">
+    <div class="container" style="padding-block:4rem 0;">
+      <div class="section-label">
+        <span class="section-label__num">03.</span>
+        <span class="section-label__text">Our History</span>
+      </div>
+      <h2 class="type-subhead reveal" id="timeline-heading" style="margin-bottom:0;">From Idea to Infrastructure</h2>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-item__year">2021</div>
+        <div class="timeline-item__event">Founded in Berlin</div>
+        <p class="timeline-item__desc">Three ex-revenue operators frustrated with the existing analytics landscape start Stratum from a shared workspace.</p>
+      </div>
+      <div class="timeline-item reveal reveal-delay-1">
+        <div class="timeline-item__year">2022</div>
+        <div class="timeline-item__event">Series A · $8M</div>
+        <p class="timeline-item__desc">Raised $8M from Benchmark and Index Ventures. First 50 enterprise customers onboarded in the first six months.</p>
+      </div>
+      <div class="timeline-item reveal reveal-delay-2">
+        <div class="timeline-item__year">2024</div>
+        <div class="timeline-item__event">AI Forecasting Launch</div>
+        <p class="timeline-item__desc">Launched the industry's first deal-velocity AI model, predicting close probability with 84% accuracy at 30 days out.</p>
+      </div>
+      <div class="timeline-item reveal reveal-delay-3">
+        <div class="timeline-item__year">2026</div>
+        <div class="timeline-item__event">2,400+ Teams</div>
+        <p class="timeline-item__desc">Now tracking over $1.2B in annual revenue across 40 countries. Series B closed at $42M. Expanding to APAC.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="section" style="padding:0;" aria-labelledby="team-heading">
+    <div class="container" style="padding-block:4rem 0;">
+      <div class="section-label">
+        <span class="section-label__num">04.</span>
+        <span class="section-label__text">Leadership</span>
+      </div>
+      <h2 class="type-subhead reveal" id="team-heading" style="margin-bottom:0;">The Team</h2>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="team-card__photo-placeholder bg-black" aria-hidden="true">KL</div>
+        <div class="team-card__body">
+          <div class="team-card__name">Kai Linden</div>
+          <div class="team-card__role">Chief Executive Officer</div>
+          <p class="team-card__bio">Former VP of Revenue at Salesforce EMEA. 12 years building and running enterprise sales operations.</p>
+        </div>
+      </div>
+      <div class="team-card reveal reveal-delay-1">
+        <div class="team-card__photo-placeholder" style="background-color:#FF3000;" aria-hidden="true">MV</div>
+        <div class="team-card__body">
+          <div class="team-card__name">Maria Voss</div>
+          <div class="team-card__role">Chief Technology Officer</div>
+          <p class="team-card__bio">Previously Principal Engineer at Palantir. Obsessed with data pipelines that tell the truth at scale.</p>
+        </div>
+      </div>
+      <div class="team-card reveal reveal-delay-2">
+        <div class="team-card__photo-placeholder" style="background-color:#333;" aria-hidden="true">TR</div>
+        <div class="team-card__body">
+          <div class="team-card__name">Tom Reinhart</div>
+          <div class="team-card__role">Chief Revenue Officer</div>
+          <p class="team-card__bio">Built the revenue function at two unicorn SaaS companies. Joined Stratum to practice what he preaches.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-band" style="background:#000;color:#fff;padding:5rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;border-top:4px solid #000;">
+    <h2 style="font-size:clamp(2rem,4vw,3.5rem);font-weight:900;letter-spacing:-0.04em;line-height:0.95;text-transform:uppercase;max-width:18ch;">
+      Work at Stratum? <span style="color:#FF3000;">We're Hiring</span>
+    </h2>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+      <a href="contact.html" class="btn btn-accent btn-lg">View Open Roles</a>
+      <a href="contact.html" class="btn btn-lg" style="border:2px solid rgba(255,255,255,0.3);color:#fff;">Contact Us</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__logo">Strat<span>um</span></div>
+          <p class="footer__desc">Business analytics built on objective data, designed for decisive action.</p>
+        </div>
+        <div>
+          <div class="footer__heading">Product</div>
+          <a href="dashboard.html" class="footer__link">Dashboard</a>
+          <a href="pricing.html" class="footer__link">Pricing</a>
+        </div>
+        <div>
+          <div class="footer__heading">Company</div>
+          <a href="about.html" class="footer__link">About</a>
+          <a href="contact.html" class="footer__link">Contact</a>
+        </div>
+        <div>
+          <div class="footer__heading">Legal</div>
+          <a href="#" class="footer__link">Privacy Policy</a>
+          <a href="#" class="footer__link">Terms of Service</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span class="footer__copy">© 2026 Stratum Analytics, Inc.</span>
+        <span class="footer__copy">Swiss International Typographic Style.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

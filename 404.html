@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Page Not Found · Stratum</title>
+  <meta name="description" content="The page you're looking for doesn't exist." />
+  <link rel="stylesheet" href="main.css" />
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .error-page {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 7fr 5fr;
+      border-bottom: 4px solid #000;
+      min-height: calc(100vh - 64px);
+    }
+
+    .error-content {
+      padding: 8rem 4rem 8rem 0;
+      border-right: 4px solid #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .error-number {
+      font-size: clamp(8rem, 20vw, 18rem);
+      font-weight: 900;
+      letter-spacing: -0.06em;
+      line-height: 0.8;
+      color: rgba(0,0,0,0.06);
+      margin-bottom: -2rem;
+      user-select: none;
+    }
+
+    .error-title {
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      line-height: 0.95;
+      margin-bottom: 1.5rem;
+    }
+
+    .error-title em { font-style: normal; color: #FF3000; }
+
+    .error-desc {
+      font-size: 1rem;
+      line-height: 1.65;
+      color: #555;
+      max-width: 50ch;
+      margin-bottom: 3rem;
+    }
+
+    .error-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .error-links {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 2px solid rgba(0,0,0,0.1);
+    }
+
+    .error-links__label {
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 1rem;
+    }
+
+    .error-links__list {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .error-link {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-bottom: 2px solid #000;
+      padding-bottom: 2px;
+      transition: color 150ms ease-out, border-color 150ms ease-out;
+    }
+
+    .error-link:hover { color: #FF3000; border-color: #FF3000; }
+
+    /* Right visual panel */
+    .error-visual {
+      background-color: #F2F2F2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .error-composition {
+      position: relative;
+      width: 320px;
+      height: 320px;
+    }
+
+    .ec-rect-bg {
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      background-color: #000;
+      top: 40px;
+      left: 40px;
+    }
+
+    .ec-rect-accent {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background-color: #FF3000;
+      top: 0;
+      right: 0;
+    }
+
+    .ec-circle {
+      position: absolute;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 4px solid #000;
+      background-color: #fff;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+
+    .ec-text {
+      position: absolute;
+      bottom: 40px;
+      right: 40px;
+      font-size: 0.5rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      writing-mode: vertical-lr;
+    }
+
+    @media (max-width: 768px) {
+      .error-page { grid-template-columns: 1fr; }
+      .error-content { padding: 4rem 0; border-right: none; }
+      .error-visual { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <div class="nav__inner">
+        <a href="index.html" class="nav__logo">Strat<span>um</span></a>
+        <div class="nav__links">
+          <a href="index.html" class="nav__link"><span>Home</span><span>Home</span></a>
+          <a href="about.html" class="nav__link"><span>About</span><span>About</span></a>
+          <a href="pricing.html" class="nav__link"><span>Pricing</span><span>Pricing</span></a>
+          <a href="contact.html" class="nav__link"><span>Contact</span><span>Contact</span></a>
+        </div>
+        <div class="nav__actions">
+          <a href="login.html" class="btn btn-secondary btn-sm">Log In</a>
+          <a href="login.html#signup" class="btn btn-primary btn-sm">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="error-page" role="main">
+    <div class="container" style="padding:0;max-width:100%;display:contents;">
+      <div class="error-content" style="padding-inline-start:2rem;">
+        <div class="section-label" style="margin-bottom:1rem;">
+          <span class="section-label__num">Error</span>
+          <span class="section-label__text">Page Not Found</span>
+        </div>
+
+        <div class="error-number" aria-hidden="true">404</div>
+
+        <h1 class="error-title">
+          Wrong<br/>
+          <em>Turn</em>
+        </h1>
+
+        <p class="error-desc">
+          The page you requested doesn't exist, was moved, or is temporarily unavailable. Use the links below to get back on track.
+        </p>
+
+        <div class="error-actions">
+          <a href="index.html" class="btn btn-primary btn-lg">Go to Homepage</a>
+          <a href="dashboard.html" class="btn btn-secondary btn-lg">Open Dashboard</a>
+        </div>
+
+        <div class="error-links">
+          <div class="error-links__label">Or navigate to</div>
+          <div class="error-links__list">
+            <a href="about.html" class="error-link">About</a>
+            <a href="pricing.html" class="error-link">Pricing</a>
+            <a href="contact.html" class="error-link">Contact</a>
+            <a href="login.html" class="error-link">Log In</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="error-visual swiss-dots" aria-hidden="true">
+        <div class="error-composition">
+          <div class="ec-rect-bg"></div>
+          <div class="ec-rect-accent"></div>
+          <div class="ec-circle">?</div>
+          <span class="ec-text">404 Not Found</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>

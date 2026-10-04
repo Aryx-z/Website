@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing — Stratum Analytics</title>
+  <meta name="description" content="Simple, transparent pricing for teams of all sizes. Start free, scale as you grow." />
+  <link rel="stylesheet" href="main.css" />
+  <style>
+    /* ── Pricing Hero ─────────────────────────────────────── */
+    .pricing-hero {
+      border-bottom: 4px solid #000;
+      padding: 6rem 0 0;
+      background-color: #F2F2F2;
+    }
+
+    .pricing-hero__inner {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: 0;
+      align-items: end;
+    }
+
+    .pricing-hero__left {
+      padding: 0 3rem 4rem 0;
+      border-right: 4px solid #000;
+    }
+
+    .pricing-hero__right {
+      padding: 0 0 4rem 3rem;
+    }
+
+    /* ── Pricing Grid ─────────────────────────────────────── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .pricing-card {
+      border-right: none;
+      border-left: 4px solid #000;
+    }
+
+    .pricing-card:first-child { border-left: none; }
+
+    .pricing-card__divider {
+      height: 4px;
+      background-color: #000;
+    }
+
+    .pricing-card--featured .pricing-card__divider { background-color: #FF3000; }
+
+    /* Feature comparison line */
+    .pricing-card__feature:last-child { border-bottom: none; }
+    .pricing-card--featured .pricing-card__check { color: #FF3000; }
+
+    /* ── FAQ ──────────────────────────────────────────────── */
+    .faq-item {
+      border-bottom: 4px solid #000;
+    }
+
+    .faq-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2rem 0;
+      width: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .faq-trigger__text {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+    }
+
+    .faq-icon {
+      width: 28px;
+      height: 28px;
+      border: 2px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 200ms ease-out, background-color 200ms ease-out;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #000;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+      background-color: #FF3000;
+      border-color: #FF3000;
+      color: #fff;
+    }
+
+    .faq-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 300ms ease-out;
+    }
+
+    .faq-body__inner {
+      padding-bottom: 2rem;
+      font-size: 0.875rem;
+      line-height: 1.7;
+      color: #444;
+      max-width: 65ch;
+    }
+
+    /* ── Compare Table ────────────────────────────────────── */
+    .compare-table { width: 100%; border-collapse: collapse; }
+
+    .compare-table th {
+      text-align: left;
+      padding: 1rem 1.5rem;
+      font-size: 0.625rem;
+      font-weight: 900;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border-bottom: 4px solid #000;
+    }
+
+    .compare-table th:first-child { background-color: #F2F2F2; }
+    .compare-table th:nth-child(2) { background-color: #000; color: #fff; }
+    .compare-table th:nth-child(3) { background-color: #FF3000; color: #fff; }
+    .compare-table th:nth-child(4) { background-color: #000; color: #fff; }
+
+    .compare-table td {
+      padding: 0.875rem 1.5rem;
+      font-size: 0.75rem;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .compare-table td:first-child {
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .compare-table tr:hover td { background-color: #FAFAFA; }
+
+    .check { color: #007733; font-weight: 900; }
+    .cross { color: #ccc; font-weight: 900; }
+
+    @media (max-width: 768px) {
+      .pricing-hero__inner { grid-template-columns: 1fr; }
+      .pricing-hero__left { border-right: none; border-bottom: 4px solid #000; padding: 0 0 2rem; }
+      .pricing-hero__right { padding: 2rem 0 2rem; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .pricing-card { border-left: none; border-top: 4px solid #000; }
+      .pricing-card:first-child { border-top: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <div class="nav__inner">
+        <a href="index.html" class="nav__logo">Strat<span>um</span></a>
+        <div class="nav__links">
+          <a href="index.html" class="nav__link"><span>Home</span><span>Home</span></a>
+          <a href="about.html" class="nav__link"><span>About</span><span>About</span></a>
+          <a href="pricing.html" class="nav__link" aria-current="page"><span>Pricing</span><span>Pricing</span></a>
+          <a href="contact.html" class="nav__link"><span>Contact</span><span>Contact</span></a>
+        </div>
+        <div class="nav__actions">
+          <a href="login.html" class="btn btn-secondary btn-sm">Log In</a>
+          <a href="login.html#signup" class="btn btn-primary btn-sm">Get Started</a>
+        </div>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="index.html" class="mobile-nav__link">Home</a>
+    <a href="about.html" class="mobile-nav__link">About</a>
+    <a href="pricing.html" class="mobile-nav__link">Pricing</a>
+    <a href="contact.html" class="mobile-nav__link">Contact</a>
+  </div>
+
+  <!-- Pricing Hero -->
+  <section class="pricing-hero swiss-dots" aria-labelledby="pricing-headline">
+    <div class="container">
+      <div class="pricing-hero__inner">
+        <div class="pricing-hero__left">
+          <div class="section-label">
+            <span class="section-label__num">04.</span>
+            <span class="section-label__text">Pricing</span>
+          </div>
+          <h1 class="type-headline" id="pricing-headline">
+            Simple.<br/>
+            Honest.<br/>
+            Scalable.
+          </h1>
+        </div>
+        <div class="pricing-hero__right">
+          <p class="type-body" style="color:#444;margin-bottom:2rem;">
+            No hidden fees. No per-seat surprises. One price per tier — so your whole team can work in Stratum without watching costs spiral. Start with a 14-day free trial on any plan.
+          </p>
+          <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;">
+            <button class="filter-pill active" id="billing-monthly">Monthly</button>
+            <button class="filter-pill" id="billing-annual">Annual <span style="color:#FF3000;margin-left:0.25rem;">−20%</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Cards -->
+  <section aria-label="Pricing plans">
+    <div class="container" style="padding:0;max-width:100%;">
+      <div class="pricing-grid" style="border-bottom:4px solid #000;">
+        <!-- Starter -->
+        <div class="pricing-card">
+          <div class="pricing-card__divider"></div>
+          <div style="padding:3rem;">
+            <div class="pricing-card__tier">Starter</div>
+            <div class="pricing-card__price" id="price-starter">$49</div>
+            <div class="pricing-card__period">per month · up to 5 users</div>
+            <a href="login.html#signup" class="btn btn-secondary btn-full" style="margin-bottom:2rem;">Start Free Trial</a>
+            <div class="pricing-card__feature"><span class="pricing-card__check">✓</span> 3 Revenue Dashboards</div>
+            <div class="pricing-card__feature"><span class="pricing-card__check">✓</span> Basic Pipeline View</div>
+            <div class="pricing-card__feature"><span class="pricing-card__check">✓</span> 90-Day Data History</div>
+            <div class="pricing-card__feature"><span class="pricing-card__check">✓</span> Email Reports (Weekly)</div>
+            <div class="pricing-card__feature" style="color:#bbb;"><span style="color:#ddd;">✓</span> AI Forecasting</div>
+            <div class="pricing-card__feature" style="color:#bbb;"><span style="color:#ddd;">✓</span> CRM Integrations</div>
+            <div class="pricing-card__feature" style="border:none;color:#bbb;"><span style="color:#ddd;">✓</span> Custom Reports</div>
+          </div>
+        </div>
+
+        <!-- Pro (Featured) -->
+        <div class="pricing-card pricing-card--featured">
+          <div class="pricing-card__divider"></div>
+          <div style="padding:3rem;">
+            <div class="pricing-card__tier" style="display:flex;align-items:center;justify-content:space-between;">
+              Pro
+              <span class="badge badge--red" style="background:#FF3000;color:#fff;border-color:#FF3000;">Most Popular</span>
+            </div>
+            <div class="pricing-card__price" id="price-pro">$149</div>
+            <div class="pricing-card__period">per month · up to 20 users</div>
+            <a href="login.html#signup" class="btn btn-accent btn-full" style="margin-bottom:2rem;">Start Free Trial</a>
+            <div class="pricing-card__feature"><span class="pricing-card__check">✓</span> Unlimited Dashboards</div>
+            <div class="pricing-card__feature"><span class="pricing-card__check">✓</span> Full Pipeline Intelligence</div>
+            <div class="pricing-card__feature"><span class="pricing-card__check">✓</span> 2-Year Data History</div>
+            <div class="pricing-card__feature"><span class="pricing-card__check">✓</span> Daily Email Reports</div>
+            <div class="pricing-card__feature"><span class="pricing-card__check">✓</span> AI Forecasting</div>
+            <div class="pricing-card__feature"><span class="pricing-card__check">✓</span> CRM Integrations</div>
+            <div class="pricing-card__feature" style="border:none;"><span class="pricing-card__check">✓</span> Custom Reports</div>
+          </div>
+        </div>
+
+        <!-- Enterprise -->
+        <div class="pricing-card">
+          <div class="pricing-card__divider"></div>
+          <div style="padding:3rem;">
+            <div class="pricing-card__tier">Enterprise</div>
+            <div class="pricing-card__price" id="price-enterprise">Custom</div>
+            <div class="pricing-card__period">bespoke pricing · unlimited users</div>
+            <a href="contact.html" class="btn btn-primary btn-full" style="margin-bottom:2rem;">Talk to Sales</a>
+            <div class="pricing-card__feature"><span class="pricing-card__check">✓</span> Everything in Pro</div>
+            <div class="pricing-card__feature"><span class="pricing-card__check">✓</span> SSO & SCIM Provisioning</div>
+            <div class="pricing-card__feature"><span class="pricing-card__check">✓</span> Unlimited Data History</div>
+            <div class="pricing-card__feature"><span class="pricing-card__check">✓</span> Dedicated CSM</div>
+            <div class="pricing-card__feature"><span class="pricing-card__check">✓</span> SLA Guarantee (99.9%)</div>
+            <div class="pricing-card__feature"><span class="pricing-card__check">✓</span> Custom Integrations</div>
+            <div class="pricing-card__feature" style="border:none;"><span class="pricing-card__check">✓</span> On-Prem Deployment</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Compare Table -->
+  <section class="section" style="padding-top:0;" aria-labelledby="compare-heading">
+    <div class="container">
+      <div class="section-label" style="margin-top:4rem;">
+        <span class="section-label__num">05.</span>
+        <span class="section-label__text">Full Comparison</span>
+      </div>
+      <h2 class="type-subhead reveal" id="compare-heading" style="margin-bottom:3rem;">Compare Plans</h2>
+
+      <div style="overflow-x:auto;">
+        <table class="compare-table" aria-label="Plan comparison table">
+          <thead>
+            <tr>
+              <th scope="col">Feature</th>
+              <th scope="col">Starter</th>
+              <th scope="col">Pro</th>
+              <th scope="col">Enterprise</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Revenue Dashboards</td><td>3</td><td>Unlimited</td><td>Unlimited</td></tr>
+            <tr><td>Users Included</td><td>Up to 5</td><td>Up to 20</td><td>Unlimited</td></tr>
+            <tr><td>Data History</td><td>90 days</td><td>2 years</td><td>Unlimited</td></tr>
+            <tr><td>Pipeline Intelligence</td><td>Basic</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+            <tr><td>AI Forecasting</td><td><span class="cross">—</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+            <tr><td>Customer Health Scores</td><td><span class="cross">—</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+            <tr><td>CRM Integrations</td><td><span class="cross">—</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+            <tr><td>Custom Reports</td><td><span class="cross">—</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+            <tr><td>SSO / SCIM</td><td><span class="cross">—</span></td><td><span class="cross">—</span></td><td><span class="check">✓</span></td></tr>
+            <tr><td>Dedicated CSM</td><td><span class="cross">—</span></td><td><span class="cross">—</span></td><td><span class="check">✓</span></td></tr>
+            <tr><td>SLA Guarantee</td><td>99.5%</td><td>99.5%</td><td>99.9%</td></tr>
+            <tr><td>On-Prem Deployment</td><td><span class="cross">—</span></td><td><span class="cross">—</span></td><td><span class="check">✓</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" aria-labelledby="faq-heading">
+    <div class="container">
+      <div class="section-label">
+        <span class="section-label__num">06.</span>
+        <span class="section-label__text">FAQ</span>
+      </div>
+      <h2 class="type-subhead reveal" id="faq-heading" style="margin-bottom:3rem;">Common Questions</h2>
+
+      <div>
+        <div class="faq-item">
+          <button class="faq-trigger" aria-expanded="false">
+            <span class="faq-trigger__text">Can I change plans at any time?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-body">
+            <div class="faq-body__inner">Yes. You can upgrade or downgrade at any time. Upgrades take effect immediately; downgrades apply at the next billing cycle. No penalties, no locked-in contracts on monthly plans.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" aria-expanded="false">
+            <span class="faq-trigger__text">What counts as a "user"?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-body">
+            <div class="faq-body__inner">A user is anyone with an active Stratum login. Read-only guest access and API integrations do not count toward your user limit.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" aria-expanded="false">
+            <span class="faq-trigger__text">Is the 14-day trial truly free?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-body">
+            <div class="faq-body__inner">Completely. No credit card required to start. You get full access to all features of your chosen plan for 14 days. We will email you before the trial ends.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" aria-expanded="false">
+            <span class="faq-trigger__text">Which CRMs do you integrate with?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-body">
+            <div class="faq-body__inner">Stratum integrates natively with Salesforce, HubSpot, Pipedrive, and Zoho CRM. Enterprise plans include custom integration support via REST API and webhooks.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" aria-expanded="false">
+            <span class="faq-trigger__text">How does annual billing work?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-body">
+            <div class="faq-body__inner">Annual plans are billed once per year upfront at a 20% discount versus monthly pricing. You can cancel and receive a prorated refund within the first 30 days.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__logo">Strat<span>um</span></div>
+          <p class="footer__desc">Business analytics built on objective data, designed for decisive action.</p>
+        </div>
+        <div>
+          <div class="footer__heading">Product</div>
+          <a href="dashboard.html" class="footer__link">Dashboard</a>
+          <a href="pricing.html" class="footer__link">Pricing</a>
+        </div>
+        <div>
+          <div class="footer__heading">Company</div>
+          <a href="about.html" class="footer__link">About</a>
+          <a href="contact.html" class="footer__link">Contact</a>
+        </div>
+        <div>
+          <div class="footer__heading">Legal</div>
+          <a href="#" class="footer__link">Privacy Policy</a>
+          <a href="#" class="footer__link">Terms of Service</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span class="footer__copy">© 2026 Stratum Analytics, Inc.</span>
+        <span class="footer__copy">Swiss International Typographic Style.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    // Billing toggle
+    const monthlyPrices = { starter: '$49', pro: '$149', enterprise: 'Custom' };
+    const annualPrices  = { starter: '$39', pro: '$119', enterprise: 'Custom' };
+
+    const monthlyBtn = document.getElementById('billing-monthly');
+    const annualBtn  = document.getElementById('billing-annual');
+
+    function setPrices(prices) {
+      document.getElementById('price-starter').textContent   = prices.starter;
+      document.getElementById('price-pro').textContent       = prices.pro;
+      document.getElementById('price-enterprise').textContent = prices.enterprise;
+    }
+
+    monthlyBtn.addEventListener('click', () => {
+      monthlyBtn.classList.add('active'); annualBtn.classList.remove('active');
+      setPrices(monthlyPrices);
+    });
+
+    annualBtn.addEventListener('click', () => {
+      annualBtn.classList.add('active'); monthlyBtn.classList.remove('active');
+      setPrices(annualPrices);
+    });
+  </script>
+</body>
+</html>

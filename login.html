@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log In — Stratum Analytics</title>
+  <meta name="description" content="Sign in to Stratum to access your revenue analytics dashboard." />
+  <link rel="stylesheet" href="main.css" />
+  <style>
+    body { overflow: hidden; }
+
+    .auth-layout {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      height: 100vh;
+    }
+
+    /* ── Left Panel ────────────────────────────────────────── */
+    .auth-form-panel {
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      border-right: 4px solid #000;
+    }
+
+    .auth-form-panel__header {
+      padding: 2rem;
+      border-bottom: 4px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .auth-logo {
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+    }
+
+    .auth-logo span { color: #FF3000; }
+
+    .auth-form-panel__body {
+      flex: 1;
+      padding: 4rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .auth-tabs {
+      display: flex;
+      border-bottom: 4px solid #000;
+      margin-bottom: 3rem;
+    }
+
+    .auth-tab {
+      flex: 1;
+      padding: 1rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-align: center;
+      cursor: pointer;
+      border-bottom: 4px solid transparent;
+      margin-bottom: -4px;
+      transition: color 150ms ease-out, border-color 150ms ease-out;
+      background: none;
+      border-left: none;
+      border-top: none;
+      border-right: none;
+    }
+
+    .auth-tab.active {
+      border-bottom: 4px solid #FF3000;
+      color: #FF3000;
+    }
+
+    .auth-tab:hover:not(.active) { color: #FF3000; }
+
+    .auth-panel { display: none; }
+    .auth-panel.active { display: block; }
+
+    .auth-form-title {
+      font-size: clamp(2rem, 3vw, 2.5rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .auth-form-sub {
+      font-size: 0.875rem;
+      color: #666;
+      margin-bottom: 2.5rem;
+    }
+
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-block: 0.5rem;
+    }
+
+    .auth-divider::before,
+    .auth-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: rgba(0,0,0,0.15);
+    }
+
+    .auth-divider span {
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #888;
+    }
+
+    .oauth-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      height: 52px;
+      border: 2px solid #000;
+      background: none;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background-color 150ms ease-out, color 150ms ease-out;
+      width: 100%;
+    }
+
+    .oauth-btn:hover { background-color: #000; color: #fff; }
+
+    .auth-footer-text {
+      margin-top: 2rem;
+      font-size: 0.625rem;
+      letter-spacing: 0.08em;
+      color: #888;
+      line-height: 1.7;
+    }
+
+    .auth-footer-text a { text-decoration: underline; color: #FF3000; }
+
+    .forgot-link {
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #FF3000;
+      text-align: right;
+      margin-top: -0.5rem;
+    }
+
+    /* ── Right Panel ────────────────────────────────────────── */
+    .auth-visual-panel {
+      background-color: #000;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .auth-visual-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 24px 24px;
+      pointer-events: none;
+    }
+
+    .auth-visual__top {
+      position: relative;
+      z-index: 1;
+    }
+
+    .auth-visual__label {
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 1rem;
+    }
+
+    .auth-visual__headline {
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      text-transform: uppercase;
+    }
+
+    .auth-visual__headline em { font-style: normal; color: #FF3000; }
+
+    /* Dashboard Preview Card */
+    .dashboard-preview {
+      position: relative;
+      z-index: 1;
+      background-color: rgba(255,255,255,0.04);
+      border: 2px solid rgba(255,255,255,0.1);
+      padding: 1.5rem;
+      margin-block: 2rem;
+    }
+
+    .dashboard-preview__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .dashboard-preview__title {
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .dashboard-preview__dot {
+      width: 8px;
+      height: 8px;
+      background-color: #FF3000;
+    }
+
+    .preview-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .preview-metric__value {
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    .preview-metric__label {
+      font-size: 0.5rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+
+    .preview-bar-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .preview-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .preview-bar__label {
+      font-size: 0.5rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      width: 40px;
+      flex-shrink: 0;
+    }
+
+    .preview-bar__track {
+      flex: 1;
+      height: 4px;
+      background-color: rgba(255,255,255,0.08);
+      position: relative;
+    }
+
+    .preview-bar__fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      background-color: #FF3000;
+    }
+
+    .auth-visual__quote {
+      position: relative;
+      z-index: 1;
+    }
+
+    .auth-visual__quote-text {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 1rem;
+      font-style: italic;
+    }
+
+    .auth-visual__quote-author {
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* Geometric decorations */
+    .auth-geo-circle {
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid rgba(255,48,0,0.2);
+      pointer-events: none;
+    }
+
+    @media (max-width: 768px) {
+      body { overflow: auto; }
+      .auth-layout { grid-template-columns: 1fr; height: auto; }
+      .auth-visual-panel { display: none; }
+      .auth-form-panel { border-right: none; }
+      .auth-form-panel__body { padding: 2rem 1.5rem; }
+      .form-row-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-layout">
+    <!-- Left: Form -->
+    <div class="auth-form-panel">
+      <div class="auth-form-panel__header">
+        <a href="index.html" class="auth-logo">Strat<span>um</span></a>
+        <a href="index.html" class="btn btn-ghost btn-sm" aria-label="Back to home">
+          ← Back
+        </a>
+      </div>
+
+      <div class="auth-form-panel__body">
+        <!-- Tabs -->
+        <div class="auth-tabs" role="tablist" aria-label="Authentication options">
+          <button class="auth-tab active" id="tab-login" role="tab" aria-selected="true" aria-controls="panel-login" data-target="login">Log In</button>
+          <button class="auth-tab" id="tab-signup" role="tab" aria-selected="false" aria-controls="panel-signup" data-target="signup">Create Account</button>
+        </div>
+
+        <!-- Login Panel -->
+        <div class="auth-panel active" id="panel-login" role="tabpanel" aria-labelledby="tab-login">
+          <h1 class="auth-form-title">Welcome Back</h1>
+          <p class="auth-form-sub">Enter your credentials to access your analytics.</p>
+
+          <form class="auth-form" id="login-form" novalidate>
+            <div class="form-group">
+              <label class="form-label" for="login-email">Email Address</label>
+              <input class="form-input" type="email" id="login-email" name="email" placeholder="you@company.com" autocomplete="email" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="login-password">Password</label>
+              <input class="form-input" type="password" id="login-password" name="password" placeholder="••••••••" autocomplete="current-password" required />
+              <a href="#" class="forgot-link">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full btn-lg" id="login-submit">Log In</button>
+
+            <div class="auth-divider"><span>or continue with</span></div>
+
+            <button type="button" class="oauth-btn" id="google-login-btn" aria-label="Continue with Google">
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+              Continue with Google
+            </button>
+          </form>
+
+          <p class="auth-footer-text">
+            By logging in, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+          </p>
+        </div>
+
+        <!-- Sign Up Panel -->
+        <div class="auth-panel" id="panel-signup" role="tabpanel" aria-labelledby="tab-signup">
+          <h1 class="auth-form-title">Create Account</h1>
+          <p class="auth-form-sub">14-day free trial. No credit card required.</p>
+
+          <form class="auth-form" id="signup-form" novalidate>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label class="form-label" for="signup-first">First Name</label>
+                <input class="form-input" type="text" id="signup-first" name="first_name" placeholder="Jane" autocomplete="given-name" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="signup-last">Last Name</label>
+                <input class="form-input" type="text" id="signup-last" name="last_name" placeholder="Smith" autocomplete="family-name" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="signup-email">Work Email</label>
+              <input class="form-input" type="email" id="signup-email" name="email" placeholder="jane@company.com" autocomplete="email" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="signup-company">Company Name</label>
+              <input class="form-input" type="text" id="signup-company" name="company" placeholder="Acme Corp" autocomplete="organization" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="signup-password">Password</label>
+              <input class="form-input" type="password" id="signup-password" name="password" placeholder="Min. 8 characters" autocomplete="new-password" required minlength="8" />
+            </div>
+
+            <div id="signup-error" class="form-error" role="alert" style="display:none;"></div>
+
+            <button type="submit" class="btn btn-accent btn-full btn-lg" id="signup-submit">Create Free Account</button>
+
+            <div class="auth-divider"><span>or sign up with</span></div>
+
+            <button type="button" class="oauth-btn" id="google-signup-btn" aria-label="Sign up with Google">
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+              Sign Up with Google
+            </button>
+          </form>
+
+          <p class="auth-footer-text">
+            By creating an account, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Visual Panel -->
+    <div class="auth-visual-panel" aria-hidden="true">
+      <!-- Geometric decorations -->
+      <div class="auth-geo-circle" style="width:400px;height:400px;top:-100px;right:-100px;"></div>
+      <div class="auth-geo-circle" style="width:200px;height:200px;bottom:60px;left:-60px;border-color:rgba(255,48,0,0.15);"></div>
+
+      <div class="auth-visual__top">
+        <div class="auth-visual__label">Stratum Analytics Platform</div>
+        <div class="auth-visual__headline">
+          Data<br/>You Can<br/><em>Trust</em>
+        </div>
+      </div>
+
+      <!-- Mini Dashboard Preview -->
+      <div class="dashboard-preview">
+        <div class="dashboard-preview__header">
+          <span class="dashboard-preview__title">Q4 Revenue Overview</span>
+          <div class="dashboard-preview__dot"></div>
+        </div>
+        <div class="preview-metrics">
+          <div>
+            <div class="preview-metric__value">$2.4M</div>
+            <div class="preview-metric__label">Total Revenue</div>
+          </div>
+          <div>
+            <div class="preview-metric__value">847</div>
+            <div class="preview-metric__label">Active Deals</div>
+          </div>
+          <div>
+            <div class="preview-metric__value">64%</div>
+            <div class="preview-metric__label">Win Rate</div>
+          </div>
+        </div>
+        <div class="preview-bar-row">
+          <div class="preview-bar">
+            <span class="preview-bar__label">Oct</span>
+            <div class="preview-bar__track"><div class="preview-bar__fill" style="width:72%"></div></div>
+          </div>
+          <div class="preview-bar">
+            <span class="preview-bar__label">Nov</span>
+            <div class="preview-bar__track"><div class="preview-bar__fill" style="width:58%"></div></div>
+          </div>
+          <div class="preview-bar">
+            <span class="preview-bar__label">Dec</span>
+            <div class="preview-bar__track"><div class="preview-bar__fill" style="width:89%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="auth-visual__quote">
+        <p class="auth-visual__quote-text">"Stratum gave us a single source of truth. Our entire revenue team works from the same numbers now."</p>
+        <span class="auth-visual__quote-author">— Marcus T., CRO at Blackline Capital</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+  <script>
+    // Tab switching
+    const tabs = document.querySelectorAll('.auth-tab');
+    const panels = document.querySelectorAll('.auth-panel');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+        panels.forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        document.getElementById('panel-' + tab.dataset.target).classList.add('active');
+      });
+    });
+
+    // Handle #signup hash
+    if (window.location.hash === '#signup') {
+      document.querySelector('[data-target="signup"]').click();
+    }
+
+    // Form validation demo
+    document.getElementById('login-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const btn = document.getElementById('login-submit');
+      btn.textContent = 'Authenticating…';
+      btn.disabled = true;
+      setTimeout(() => { window.location.href = 'dashboard.html'; }, 1200);
+    });
+
+    document.getElementById('signup-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const pwd = document.getElementById('signup-password').value;
+      const err = document.getElementById('signup-error');
+      if (pwd.length < 8) {
+        err.textContent = 'Password must be at least 8 characters.';
+        err.style.display = 'block';
+        return;
+      }
+      err.style.display = 'none';
+      const btn = document.getElementById('signup-submit');
+      btn.textContent = 'Creating Account…';
+      btn.disabled = true;
+      setTimeout(() => { window.location.href = 'dashboard.html'; }, 1200);
+    });
+  </script>
+</body>
+</html>
