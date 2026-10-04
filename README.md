@@ -1,5 +1,3 @@
-# Website
-# Website
 # Stratum — Analytics Website
 
 A multi-page business analytics website. No installs needed — just open the files in a browser.
